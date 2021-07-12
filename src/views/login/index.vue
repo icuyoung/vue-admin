@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data(){
     return{
@@ -44,6 +45,21 @@ export default {
         username: 'admin',
         password: '111111'
       },
+    }
+  },
+  computed:{
+    ...mapGetters('home',['loginStatus'])
+  },
+  methods:{
+    ...mapActions('home',['setLoginStatus']),
+    handleLogin(){
+      let username = this.$refs.username.value
+      let password = this.$refs.password.value
+      console.log(this.loginStatus)
+      if(username === 'admin' && password === '111111') {
+        this.setLoginStatus(true)
+        console.log(this.$router.replace('/home'))
+      }
     }
   }
 }
